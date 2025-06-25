@@ -1,6 +1,7 @@
 package com.services.solid.model;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,6 +13,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,11 +40,17 @@ public class InventoryMovement {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private MovementType movementType; // IN o OUT
+    private MovementType movementType;
 
     @Column(nullable = false)
     private Integer quantity;
 
     @Column(name = "movement_date", nullable = false, updatable = false)
-    private Date movementDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date movementDate = new Date();
+
+    @ManyToOne
+    @JoinColumn(name = "created_by")
+    private User createdBy;
+
 }

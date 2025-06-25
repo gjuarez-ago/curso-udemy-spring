@@ -5,6 +5,9 @@ import com.services.solid.dto.AuthResponse;
 import com.services.solid.model.User;
 import com.services.solid.repository.UserRepository;
 import com.services.solid.jwt.JwtService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
@@ -43,6 +46,7 @@ public class AuthService {
         user.setUsername(request.getEmail());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setRole(request.getRole());
 
         userRepository.save(user);
 
@@ -52,4 +56,9 @@ public class AuthService {
         String token = jwtService.generateToken(authentication);
         return new AuthResponse(token);
     }
+
+    public List<User> getUsers() {
+        return userRepository.findAll();
+    }
+
 }

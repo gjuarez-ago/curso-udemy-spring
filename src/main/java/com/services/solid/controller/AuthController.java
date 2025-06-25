@@ -2,9 +2,14 @@ package com.services.solid.controller;
 
 import com.services.solid.dto.AuthRequest;
 import com.services.solid.dto.AuthResponse;
+import com.services.solid.model.User;
 import com.services.solid.service.AuthService;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -25,4 +30,5 @@ public class AuthController {
         AuthResponse response = authService.register(request);
         return ResponseEntity.ok(response);
     }
+    
 }
